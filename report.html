@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Player | Crucified Clan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-light: #f4f5f7;
+            --text-dark: #111111;
+            --text-muted: #6c757d;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4rem;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--text-muted);
+        }
+
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Container */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+            background-color: var(--bg-light);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--text-dark);
+            background-color: #fff;
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: var(--text-dark);
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-full:hover {
+            background-color: var(--text-muted);
+        }
+
+        /* Completion Step (Success Animation) */
+        .success-box {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .circle-checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--success-green);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1.5rem auto;
+            color: white;
+            font-size: 2.5rem;
+            animation: scaleUp 0.4s ease-out forwards;
+        }
+
+        @keyframes scaleUp {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+        }
+
+        .success-msg {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Main Page</a>
+        <div class="brand-name">Crucified</div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Report Form -->
+        <div id="step-report-form" class="card">
+            <h2 class="card-title"><i class="fa-solid fa-flag"></i> Report Player</h2>
+            <form id="reportForm" onsubmit="submitReportForm(event)">
+                <div class="form-group">
+                    <label>Who do you want to report?</label>
+                    <input type="text" placeholder="Player IGN" required>
+                </div>
+                <div class="form-group">
+                    <label>Why do you want to report this player?</label>
+                    <textarea rows="4" placeholder="Describe the incident..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Proof (Image/Video URL)</label>
+                    <input type="url" placeholder="https://..." required>
+                </div>
+                <button type="submit" class="btn-full">Submit Report <i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+
+        <!-- Success Screen -->
+        <div id="step-report-success" class="card hidden">
+            <div class="success-box">
+                <div class="circle-checkmark">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h2 class="success-title">Report Submitted</h2>
+                <p class="success-msg">Your report has been submitted successfully.<br>Our staff team will review the evidence shortly.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitReportForm(e) {
+            e.preventDefault();
+            document.getElementById('step-report-form').classList.add('hidden');
+            document.getElementById('step-report-success').classList.remove('hidden');
+        }
+    </script><!-- Firebase SDK Integration -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+         apiKey: "AIzaSyAEFhmLavb9_xQknUDLYb04EQFlB-19PA4",
+  authDomain: "crucified-ffaba.firebaseapp.com",
+  projectId: "crucified-ffaba",
+  storageBucket: "crucified-ffaba.firebasestorage.app",
+  messagingSenderId: "806679367461",
+  appId: "1:806679367461:web:c4c24f0f3fe7eec2aad4cc",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById('reportForm');
+    
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const reportedPlayer = document.getElementById('reportedPlayer').value;
+            const reason = document.getElementById('reportReason').value;
+            const proof = document.getElementById('reportProof').value;
+
+            try {
+                await addDoc(collection(db, "reports"), {
+                    reportedPlayer: reportedPlayer,
+                    reason: reason,
+                    proof: proof,
+                    submittedAt: new Date()
+                });
+
+                document.getElementById('step-report-form').classList.add('hidden');
+                document.getElementById('step-report-success').classList.remove('hidden');
+
+            } catch (error) {
+                alert("Error submitting report: " + error.message);
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Application | Crucified Clan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-light: #f4f5f7;
+            --text-dark: #111111;
+            --text-muted: #6c757d;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --success-green: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4rem;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--text-muted);
+        }
+
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Container */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* Rules Step */
+        .rules-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .rules-list li {
+            padding: 0.8rem 1rem;
+            background-color: var(--bg-light);
+            margin-bottom: 0.8rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #333;
+        }
+
+        .rules-list li i {
+            color: var(--text-dark);
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: var(--text-dark);
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-full:hover {
+            background-color: var(--text-muted);
+        }
+
+        /* Form Step */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+            background-color: var(--bg-light);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--text-dark);
+            background-color: #fff;
+        }
+
+        /* Completion Step (Success Animation) */
+        .success-box {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .circle-checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--success-green);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1.5rem auto;
+            color: white;
+            font-size: 2.5rem;
+            animation: scaleUp 0.4s ease-out forwards;
+        }
+
+        @keyframes scaleUp {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+        }
+
+        .success-msg {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Main Page</a>
+        <div class="brand-name">Crucified</div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Step 1: Read Rules -->
+        <div id="step-rules" class="card">
+            <h2 class="card-title"><i class="fa-solid fa-book-open"></i> Requirements & Rules</h2>
+            <ul class="rules-list">
+                <li><i class="fa-solid fa-circle-check"></i> Minimum required age is 13+ years old.</li>
+                <li><i class="fa-solid fa-shield-halved"></i> Must possess high-tier armor and gear in game.</li>
+                <li><i class="fa-solid fa-brain"></i> Sufficient experience in staff management & clan duties.</li>
+            </ul>
+            <button class="btn-full" onclick="showForm()">I Read & Understood Requirements <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <!-- Step 2: Form -->
+        <div id="step-form" class="card hidden">
+            <h2 class="card-title"><i class="fa-solid fa-user-pen"></i> Staff Application</h2>
+            <form id="staffForm" onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <label>In Game Name (IGN)</label>
+                    <input type="text" placeholder="e.g. skinzo77" required>
+                </div>
+                <div class="form-group">
+                    <label>Discord Username</label>
+                    <input type="text" placeholder="e.g. username#0000" required>
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" min="13" placeholder="13 or older" required>
+                </div>
+                <div class="form-group">
+                    <label>Describe Previous Experience</label>
+                    <textarea rows="4" placeholder="Mention your previous staff roles and skills..." required></textarea>
+                </div>
+                <button type="submit" class="btn-full">Complete <i class="fa-solid fa-check"></i></button>
+            </form>
+        </div>
+
+        <!-- Step 3: Success Screen -->
+        <div id="step-success" class="card hidden">
+            <div class="success-box">
+                <div class="circle-checkmark">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h2 class="success-title">Application Submitted</h2>
+                <p class="success-msg">You have completed your application for staff.<br>You will receive a response on your Discord account.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showForm() {
+            document.getElementById('step-rules').classList.add('hidden');
+            document.getElementById('step-form').classList.remove('hidden');
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+            document.getElementById('step-form').classList.add('hidden');
+            document.getElementById('step-success').classList.remove('hidden');
+        }
+    </script>
+    <!-- Firebase SDK Integration -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+ apiKey: "AIzaSyAEFhmLavb9_xQknUDLYb04EQFlB-19PA4",
+  authDomain: "crucified-ffaba.firebaseapp.com",
+  projectId: "crucified-ffaba",
+  storageBucket: "crucified-ffaba.firebasestorage.app",
+  messagingSenderId: "806679367461",
+  appId: "1:806679367461:web:c4c24f0f3fe7eec2aad4cc",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById('applyForm');
+    
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const ign = document.getElementById('applyIgn').value;
+            const age = document.getElementById('applyAge').value;
+            const discord = document.getElementById('applyDiscord').value;
+            const experience = document.getElementById('applyExperience').value;
+
+            try {
+                await addDoc(collection(db, "staff_applications"), {
+                    ign: ign,
+                    age: age,
+                    discord: discord,
+                    experience: experience,
+                    submittedAt: new Date()
+                });
+
+                document.getElementById('step-apply-form').classList.add('hidden');
+                document.getElementById('step-apply-success').classList.remove('hidden');
+
+            } catch (error) {
+                alert("Error submitting application: " + error.message);
+            }
+        });
+    }
+</script>
+</body>
+</html>

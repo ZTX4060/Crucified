@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crucified Clan | UltimisMC</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-light: #f4f5f7;
+            --text-dark: #111111;
+            --text-muted: #6c757d;
+            --text-light-gray: #8d99ae;
+            --card-bg: #ffffff;
+            --footer-bg: #2b2d42;
+            --footer-text: #edf2f4;
+            --accent-gray: #de1e2e6;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-muted);
+        }
+
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Section Styling */
+        .page-section {
+            min-height: 100vh;
+            padding: 6rem 4rem 4rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Page 1: Hero Section */
+        #home {
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #e9ecef 100%);
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero-title {
+            font-size: 5.5rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            line-height: 1;
+            margin: 10px 0 20px 0;
+            letter-spacing: 4px;
+        }
+
+        .hero-description {
+            color: var(--text-light-gray);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Page 2: Our Members */
+        #members {
+            background-color: var(--bg-light);
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .members-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .rank-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .rank-header {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .rank-leader { color: #d63031; }
+        .rank-staff-manager { color: #e17055; }
+        .rank-dev { color: #0984e3; }
+        .rank-manager { color: #d63031; }
+        .rank-admin { color: #e17055; }
+        .rank-mod { color: #00b894; }
+        .rank-helper { color: #00cec9; }
+        .rank-member { color: #6c5ce7; }
+
+        .member-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .member-badge {
+            background-color: var(--bg-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        /* Page 3: Apply & Ally */
+        #join-us {
+            background-color: #ffffff;
+            width: 100%;
+        }
+
+        .split-container {
+            display: flex;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .action-card {
+            flex: 1;
+            background-color: var(--bg-light);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .action-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .action-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--text-dark);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--text-muted);
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 4rem 4rem 2rem 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .footer-left, .footer-right {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .ip-box {
+            background-color: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 6px;
+            display: inline-block;
+            font-family: monospace;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            border: 1px dashed rgba(255,255,255,0.2);
+        }
+
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #5865F2;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .footer-staff-list {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-staff-list li {
+            margin-bottom: 0.4rem;
+            color: #a0aec0;
+        }
+
+        .footer-staff-list strong {
+            color: #ffffff;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #a0aec0;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#members"><i class="fa-solid fa-users"></i> Our Members</a></li>
+            <li><a href="report.html"><i class="fa-solid fa-flag"></i> Report</a></li>
+        </ul>
+
+        <div class="brand-name">Crucified</div>
+
+        <ul class="nav-links">
+            <li><a href="ally.html"><i class="fa-solid fa-handshake"></i> Ally</a></li>
+            <li><a href="apply.html"><i class="fa-solid fa-paper-plane"></i> Apply</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page 1: Hero Section -->
+    <section id="home" class="page-section">
+        <h2 class="hero-subtitle">Welcome to</h2>
+        <h1 class="hero-title">Crucified</h1>
+        <p class="hero-description">
+            Driven by pure dominance and strategic teamwork, our sole ambition is to conquer the #1 spot on the UltimisMC Leaderboards, claim the gold, and reign supreme over the server.
+        </p>
+    </section>
+
+    <!-- Page 2: Our Members -->
+    <section id="members" class="page-section">
+        <h2 class="section-title"><i class="fa-solid fa-shield-halved"></i> Our Members</h2>
+        
+        <div class="members-container">
+            <!-- Leader -->
+            <div class="rank-card">
+                <div class="rank-header rank-leader"><i class="fa-solid fa-crown"></i> Leader</div>
+                <div class="member-list">
+                    <span class="member-badge">Nobodyyyyy_gg</span>
+                </div>
+            </div>
+
+            <!-- Staff Manager -->
+            <div class="rank-card">
+                <div class="rank-header rank-staff-manager"><i class="fa-solid fa-user-tie"></i> Staff Manager</div>
+                <div class="member-list">
+                    <span class="member-badge">JustAhmed_</span>
+                </div>
+            </div>
+
+            <!-- Dev -->
+            <div class="rank-card">
+                <div class="rank-header rank-dev"><i class="fa-solid fa-code"></i> Dev</div>
+                <div class="member-list">
+                    <span class="member-badge">skinzo77</span>
+                </div>
+            </div>
+
+            <!-- Manager -->
+            <div class="rank-card">
+                <div class="rank-header rank-manager"><i class="fa-solid fa-list-check"></i> Manager</div>
+                <div class="member-list">
+                    <span class="member-badge">N/A</span>
+                </div>
+            </div>
+
+            <!-- Admin -->
+            <div class="rank-card">
+                <div class="rank-header rank-admin"><i class="fa-solid fa-user-ninja"></i> Admin</div>
+                <div class="member-list">
+                    <span class="member-badge">Eslam242</span>
+                    <span class="member-badge">SxZo</span>
+                </div>
+            </div>
+
+            <!-- Mod -->
+            <div class="rank-card">
+                <div class="rank-header rank-mod"><i class="fa-solid fa-user-shield"></i> Mod</div>
+                <div class="member-list">
+                    <span class="member-badge">Fuxion</span>
+                </div>
+            </div>
+
+            <!-- Helper -->
+            <div class="rank-card">
+                <div class="rank-header rank-helper"><i class="fa-solid fa-hand-holding-hand"></i> Helper</div>
+                <div class="member-list">
+                    <span class="member-badge">N/A</span>
+                </div>
+            </div>
+
+            <!-- Members -->
+            <div class="rank-card">
+                <div class="rank-header rank-member"><i class="fa-solid fa-user"></i> Members</div>
+                <div class="member-list">
+                    <span class="member-badge">qaam</span>
+                    <span class="member-badge">baldheadpecko</span>
+                    <span class="member-badge">Xenox231</span>
+                    <span class="member-badge">_Alzey_</span>
+                    <span class="member-badge">Nouf_</span>
+                    <span class="member-badge">acalmaind</span>
+                    <span class="member-badge">salambader</span>
+                    <span class="member-badge">InvisibleMercy</span>
+                    <span class="member-badge">abu_bilal8</span>
+                    <span class="member-badge">AquaTheSecond</span>
+                    <span class="member-badge">kocurek124</span>
+                    <span class="member-badge">NoMercyBaby</span>
+                    <span class="member-badge">GAZA_BACK</span>
+                    <span class="member-badge">PharaoH_____</span>
+                    <span class="member-badge">PhoenixEchoes</span>
+                    <span class="member-badge">Dad_Is_Hare</span>
+                    <span class="member-badge">Adertra</span>
+                    <span class="member-badge">ItzTechnoGuy</span>
+                    <span class="member-badge">ImNobodyBtw</span>
+                    <span class="member-badge">IwasQorix</span>
+                    <span class="member-badge">Luka726</span>
+                    <span class="member-badge">rcol</span>
+                    <span class="member-badge">Solvski</span>
+                    <span class="member-badge">Lone_Raichu</span>
+                    <span class="member-badge">TimotejFiko</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 3: Apply & Ally -->
+    <section id="join-us" class="page-section">
+        <h2 class="section-title"><i class="fa-solid fa-door-open"></i> Join or Ally</h2>
+        <div class="split-container">
+            <div class="action-card">
+                <div>
+                    <h3><i class="fa-solid fa-paper-plane"></i> Apply for Clan</h3>
+                    <p>Think you have what it takes to fight alongside the best? Submit your application and prove your strength on the battlefield.</p>
+                </div>
+                <a href="apply.html" class="btn">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="action-card">
+                <div>
+                    <h3><i class="fa-solid fa-handshake"></i> Request Alliance</h3>
+                    <p>Looking to build a powerful coalition? Send an alliance request to form a strong pact with Crucified.</p>
+                </div>
+                <a href="ally.html" class="btn">Ally Request <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>Crucified Clan</h3>
+                <p>Dominating UltimisMC server.</p>
+                <div class="ip-box"><i class="fa-solid fa-server"></i> IP: ultimismc.com</div>
+                <br>
+                <a href="#" class="discord-btn"><i class="fa-brands fa-discord"></i> Our Discord Server</a>
+            </div>
+
+            <div class="footer-right">
+                <h3>Clan Hierarchy & Staff</h3>
+                <br>
+                <ul class="footer-staff-list">
+                    <li><strong>Leader:</strong> Nobodyyyyy_gg</li>
+                    <li><strong>Staff Manager:</strong> JustAhmed_</li>
+                    <li><strong>Dev:</strong> skinzo77</li>
+                    <li><strong>Admins:</strong> Eslam242, SxZo</li>
+                    <li><strong>Mod:</strong> Fuxion</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            Created with passion | <strong>by skinzo77</strong>
+        </div>
+    </footer>
+<script src="app.js"></script>
+</body>
+</html>
