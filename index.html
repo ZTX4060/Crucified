@@ -312,6 +312,46 @@
             color: #a0aec0;
             font-size: 0.85rem;
         }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 900px) {
+            .hero-title { font-size: 3.8rem; }
+            .hero-subtitle { font-size: 1.4rem; }
+            .page-section { padding: 6rem 2rem 3rem 2rem; }
+            .split-container { flex-direction: column; }
+            nav { padding: 1rem 1.5rem; }
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                flex-direction: column;
+                gap: 0.7rem;
+                padding: 0.8rem 1rem;
+            }
+            .nav-links {
+                gap: 1.2rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links a { font-size: 0.85rem; }
+            .brand-name { font-size: 1.4rem; order: -1; }
+            /* fixed nav grows taller when stacked, push content down */
+            .page-section { padding-top: 9rem; }
+            #home.page-section { padding-top: 9rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2.6rem; letter-spacing: 2px; }
+            .hero-subtitle { font-size: 1.1rem; letter-spacing: 1px; }
+            .hero-description { font-size: 0.95rem; }
+            .section-title { font-size: 1.6rem; margin-bottom: 2rem; text-align: center; }
+            .page-section { padding: 8rem 1.2rem 2.5rem 1.2rem; }
+            .action-card { padding: 1.8rem 1.4rem; }
+            .action-card h3 { font-size: 1.4rem; }
+            footer { padding: 3rem 1.5rem 1.5rem 1.5rem; }
+            .footer-left, .footer-right { min-width: 100%; }
+            .ip-box { font-size: 1rem; word-break: break-all; }
+        }
     </style>
 </head>
 <body>
