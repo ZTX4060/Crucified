@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Application | Crucified Clan</title>
+    <title>Alliance Request | Crucified Clan</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
     
@@ -161,34 +161,26 @@
     </nav>
 
     <div class="main-container">
-        <div id="step-apply-form" class="card">
-            <h2 class="card-title"><i class="fa-solid fa-user-shield"></i> Staff Application</h2>
-            <form id="applyForm">
+        <div id="step-ally-form" class="card">
+            <h2 class="card-title"><i class="fa-solid fa-handshake"></i> Alliance Application</h2>
+            <form id="allyForm">
                 <div class="form-group">
-                    <label>In Game Name (IGN)</label>
-                    <input type="text" id="applyIgn" placeholder="Your IGN" required>
+                    <label>Leader In Game Name (IGN)</label>
+                    <input type="text" id="leaderIgn" placeholder="Leader IGN" required>
                 </div>
                 <div class="form-group">
-                    <label>Age</label>
-                    <input type="number" id="applyAge" placeholder="Your Age" required>
+                    <label>Clan Name</label>
+                    <input type="text" id="clanName" placeholder="Your Clan Name" required>
                 </div>
-                <div class="form-group">
-                    <label>Discord Tag</label>
-                    <input type="text" id="applyDiscord" placeholder="username" required>
-                </div>
-                <div class="form-group">
-                    <label>Previous Experience</label>
-                    <input type="text" id="applyExperience" placeholder="Staff history in other servers" required>
-                </div>
-                <button type="submit" class="btn-full" id="submitBtn">Submit Application <i class="fa-solid fa-paper-plane"></i></button>
+                <button type="submit" class="btn-full" id="submitBtn">Complete <i class="fa-solid fa-check"></i></button>
             </form>
         </div>
 
-        <div id="step-apply-success" class="card hidden">
+        <div id="step-ally-success" class="card hidden">
             <div class="success-box">
                 <div class="circle-checkmark"><i class="fa-solid fa-check"></i></div>
-                <h2 class="success-title">Application Submitted</h2>
-                <p class="success-msg">You have completed your application for staff.<br>You will receive a response on your Discord account.</p>
+                <h2 class="success-title">Alliance Request Sent</h2>
+                <p class="success-msg">Your alliance application has been successfully submitted.<br>Our clan leadership will review your request shortly.</p>
             </div>
         </div>
     </div>
@@ -209,26 +201,24 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        document.getElementById('applyForm').addEventListener('submit', async (e) => {
+        document.getElementById('allyForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.innerText = "Sending...";
             btn.disabled = true;
 
             try {
-                await addDoc(collection(db, "staff_applications"), {
-                    ign: document.getElementById('applyIgn').value,
-                    age: document.getElementById('applyAge').value,
-                    discord: document.getElementById('applyDiscord').value,
-                    experience: document.getElementById('applyExperience').value,
+                await addDoc(collection(db, "allies"), {
+                    leaderIgn: document.getElementById('leaderIgn').value,
+                    clanName: document.getElementById('clanName').value,
                     submittedAt: new Date()
                 });
 
-                document.getElementById('step-apply-form').classList.add('hidden');
-                document.getElementById('step-apply-success').classList.remove('hidden');
+                document.getElementById('step-ally-form').classList.add('hidden');
+                document.getElementById('step-ally-success').classList.remove('hidden');
             } catch (error) {
-                alert("Error sending application: " + error.message);
-                btn.innerText = "Submit Application";
+                alert("Error sending request: " + error.message);
+                btn.innerText = "Complete";
                 btn.disabled = false;
             }
         });
