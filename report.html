@@ -17,12 +17,7 @@
             --success-green: #10b981;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
         body {
             background-color: var(--bg-light);
@@ -32,7 +27,6 @@
             flex-direction: column;
         }
 
-        /* Navbar */
         nav {
             display: flex;
             justify-content: space-between;
@@ -52,9 +46,7 @@
             transition: color 0.3s ease;
         }
 
-        .back-btn:hover {
-            color: var(--text-muted);
-        }
+        .back-btn:hover { color: var(--text-muted); }
 
         .brand-name {
             font-size: 1.8rem;
@@ -64,7 +56,6 @@
             text-transform: uppercase;
         }
 
-        /* Container */
         .main-container {
             flex: 1;
             display: flex;
@@ -91,10 +82,7 @@
             text-align: center;
         }
 
-        /* Form */
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
+        .form-group { margin-bottom: 1.2rem; }
 
         .form-group label {
             display: block;
@@ -103,7 +91,7 @@
             font-size: 0.9rem;
         }
 
-        .form-group input, .form-group textarea {
+        .form-group input {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid var(--border-color);
@@ -113,7 +101,7 @@
             background-color: var(--bg-light);
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .form-group input:focus {
             border-color: var(--text-dark);
             background-color: #fff;
         }
@@ -136,15 +124,9 @@
             margin-top: 0.5rem;
         }
 
-        .btn-full:hover {
-            background-color: var(--text-muted);
-        }
+        .btn-full:hover { background-color: var(--text-muted); }
 
-        /* Completion Step (Success Animation) */
-        .success-box {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
+        .success-box { text-align: center; padding: 2rem 1rem; }
 
         .circle-checkmark {
             width: 80px;
@@ -166,113 +148,85 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .success-title {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 0.8rem;
-        }
-
-        .success-msg {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .hidden {
-            display: none !important;
-        }
+        .success-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.8rem; }
+        .success-msg { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav>
         <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Main Page</a>
         <div class="brand-name">Crucified</div>
     </nav>
 
     <div class="main-container">
-        <!-- Report Form -->
         <div id="step-report-form" class="card">
             <h2 class="card-title"><i class="fa-solid fa-flag"></i> Report Player</h2>
-            <form id="reportForm" onsubmit="submitReportForm(event)">
+            <form id="reportForm">
                 <div class="form-group">
-                    <label>Who do you want to report?</label>
-                    <input type="text" placeholder="Player IGN" required>
+                    <label>Reported Player (IGN)</label>
+                    <input type="text" id="reportedPlayer" placeholder="Player IGN" required>
                 </div>
                 <div class="form-group">
-                    <label>Why do you want to report this player?</label>
-                    <textarea rows="4" placeholder="Describe the incident..." required></textarea>
+                    <label>Reason</label>
+                    <input type="text" id="reportReason" placeholder="Reason for report" required>
                 </div>
                 <div class="form-group">
-                    <label>Proof (Image/Video URL)</label>
-                    <input type="url" placeholder="https://..." required>
+                    <label>Proof Link (Imgur / YouTube)</label>
+                    <input type="url" id="reportProof" placeholder="https://..." required>
                 </div>
-                <button type="submit" class="btn-full">Submit Report <i class="fa-solid fa-paper-plane"></i></button>
+                <button type="submit" class="btn-full" id="submitBtn">Submit Report <i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
 
-        <!-- Success Screen -->
         <div id="step-report-success" class="card hidden">
             <div class="success-box">
-                <div class="circle-checkmark">
-                    <i class="fa-solid fa-check"></i>
-                </div>
+                <div class="circle-checkmark"><i class="fa-solid fa-check"></i></div>
                 <h2 class="success-title">Report Submitted</h2>
-                <p class="success-msg">Your report has been submitted successfully.<br>Our staff team will review the evidence shortly.</p>
+                <p class="success-msg">Your report has been submitted to clan staff.<br>We will review the evidence provided.</p>
             </div>
         </div>
     </div>
 
-    <script>
-        function submitReportForm(e) {
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEFhmLavb9_xQknUDLYb04EQFlB-19PA4",
+            authDomain: "crucified-ffaba.firebaseapp.com",
+            projectId: "crucified-ffaba",
+            storageBucket: "crucified-ffaba.firebasestorage.app",
+            messagingSenderId: "806679367461",
+            appId: "1:806679367461:web:c4c24f0f3fe7eec2aad4cc"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById('reportForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            document.getElementById('step-report-form').classList.add('hidden');
-            document.getElementById('step-report-success').classList.remove('hidden');
-        }
-    </script><!-- Firebase SDK Integration -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-         apiKey: "AIzaSyAEFhmLavb9_xQknUDLYb04EQFlB-19PA4",
-  authDomain: "crucified-ffaba.firebaseapp.com",
-  projectId: "crucified-ffaba",
-  storageBucket: "crucified-ffaba.firebasestorage.app",
-  messagingSenderId: "806679367461",
-  appId: "1:806679367461:web:c4c24f0f3fe7eec2aad4cc",
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const form = document.getElementById('reportForm');
-    
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const reportedPlayer = document.getElementById('reportedPlayer').value;
-            const reason = document.getElementById('reportReason').value;
-            const proof = document.getElementById('reportProof').value;
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "Sending...";
+            btn.disabled = true;
 
             try {
                 await addDoc(collection(db, "reports"), {
-                    reportedPlayer: reportedPlayer,
-                    reason: reason,
-                    proof: proof,
+                    reportedPlayer: document.getElementById('reportedPlayer').value,
+                    reason: document.getElementById('reportReason').value,
+                    proof: document.getElementById('reportProof').value,
                     submittedAt: new Date()
                 });
 
                 document.getElementById('step-report-form').classList.add('hidden');
                 document.getElementById('step-report-success').classList.remove('hidden');
-
             } catch (error) {
-                alert("Error submitting report: " + error.message);
+                alert("Error sending report: " + error.message);
+                btn.innerText = "Submit Report";
+                btn.disabled = false;
             }
         });
-    }
-</script>
+    </script>
 </body>
 </html>
