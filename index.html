@@ -6,8 +6,8 @@
     <title>Crucified Clan | UltimisMC</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts (Poppins & Cairo for Arabic) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -16,10 +16,11 @@
             --text-muted: #6c757d;
             --text-light-gray: #8d99ae;
             --card-bg: #ffffff;
-            --footer-bg: #2b2d42;
+            --footer-bg: #0f172a;
             --footer-text: #edf2f4;
-            --accent-gray: #de1e2e6;
+            --accent-gray: #e2e8f0;
             --border-color: #e2e8f0;
+            --accent-purple: #9333ea;
         }
 
         * {
@@ -30,13 +31,18 @@
             scroll-behavior: smooth;
         }
 
+        /* خط مخصص للغة العربية */
+        body.lang-ar * {
+            font-family: 'Cairo', sans-serif !important;
+        }
+
         body {
             background-color: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.6;
         }
 
-        /* Navbar */
+        /* Navbar Layout for PC */
         nav {
             display: flex;
             justify-content: space-between;
@@ -50,10 +56,17 @@
             z-index: 1000;
         }
 
+        .nav-group {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
@@ -77,6 +90,31 @@
             color: var(--text-dark);
             letter-spacing: 2px;
             text-transform: uppercase;
+        }
+
+        /* Language Switcher Dropdown */
+        .lang-dropdown {
+            background: #ffffff;
+            color: var(--text-dark);
+            border: 1.5px solid var(--border-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* Mobile Container & Hamburger (Hidden on PC) */
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .mobile-only {
+            display: none;
         }
 
         /* Section Styling */
@@ -167,7 +205,7 @@
         }
 
         .rank-leader { color: #d63031; }
-        .rank-staff-manager { color: #e17055; }
+        .rank-staff-manager { color: #0984e3; }
         .rank-dev { color: #0984e3; }
         .rank-manager { color: #d63031; }
         .rank-admin { color: #e17055; }
@@ -220,6 +258,10 @@
             font-size: 1.8rem;
             margin-bottom: 1rem;
             color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .action-card p {
@@ -244,6 +286,48 @@
         .btn:hover {
             background-color: var(--text-muted);
         }
+
+        /* Page 4: Our Allies Page Section */
+        #allies {
+            background-color: var(--bg-light);
+            width: 100%;
+        }
+
+        .allies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .ally-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .ally-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--accent-purple);
+        }
+
+        .ally-title { font-size: 1.4rem; font-weight: 800; }
+        .ally-desc { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; }
 
         /* Footer Section */
         footer {
@@ -313,31 +397,58 @@
             font-size: 0.85rem;
         }
 
-        /* ===== Responsive ===== */
+        /* ===== Responsive Media Queries ===== */
         @media (max-width: 900px) {
             .hero-title { font-size: 3.8rem; }
             .hero-subtitle { font-size: 1.4rem; }
             .page-section { padding: 6rem 2rem 3rem 2rem; }
             .split-container { flex-direction: column; }
-            nav { padding: 1rem 1.5rem; }
-        }
+            nav { padding: 1rem 2rem; }
 
-        @media (max-width: 700px) {
-            nav {
+            /* إخفاء ترتيب الكمبيوتر وإظهار الهامبرغر للموبايل */
+            .desktop-group {
+                display: none !important;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .mobile-only {
+                display: flex;
+            }
+
+            .nav-menu-wrapper {
+                position: fixed;
+                top: 70px;
+                left: -100%;
                 flex-direction: column;
-                gap: 0.7rem;
-                padding: 0.8rem 1rem;
+                background-color: rgba(255, 255, 255, 0.98);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s ease-in-out;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+                gap: 1.5rem;
             }
+
+            body.lang-ar .nav-menu-wrapper {
+                left: auto;
+                right: -100%;
+            }
+
+            .nav-menu-wrapper.active {
+                left: 0;
+            }
+
+            body.lang-ar .nav-menu-wrapper.active {
+                right: 0;
+            }
+
             .nav-links {
-                gap: 1.2rem;
-                flex-wrap: wrap;
-                justify-content: center;
+                flex-direction: column;
+                gap: 1.5rem;
             }
-            .nav-links a { font-size: 0.85rem; }
-            .brand-name { font-size: 1.4rem; order: -1; }
-            /* fixed nav grows taller when stacked, push content down */
-            .page-section { padding-top: 9rem; }
-            #home.page-section { padding-top: 9rem; }
         }
 
         @media (max-width: 480px) {
@@ -358,36 +469,68 @@
 
     <!-- Navigation Bar -->
     <nav>
-        <ul class="nav-links">
-            <li><a href="#members"><i class="fa-solid fa-users"></i> Our Members</a></li>
-            <li><a href="report.html"><i class="fa-solid fa-flag"></i> Report</a></li>
-        </ul>
+        <!-- 1. Left Links (PC View) -->
+        <div class="desktop-group">
+            <ul class="nav-links">
+                <li><a href="#members"><i class="fa-solid fa-users"></i> <span data-en="Our Members" data-ar="أعضاؤنا">Our Members</span></a></li>
+                <li><a href="report.html"><i class="fa-solid fa-flag"></i> <span data-en="Report" data-ar="بلاغ">Report</span></a></li>
+            </ul>
+        </div>
 
+        <!-- 2. Brand Name in Center -->
         <div class="brand-name">Crucified</div>
 
-        <ul class="nav-links">
-            <li><a href="ally.html"><i class="fa-solid fa-handshake"></i> Ally</a></li>
-            <li><a href="apply.html"><i class="fa-solid fa-paper-plane"></i> Apply</a></li>
-        </ul>
+        <!-- 3. Right Links (PC View) -->
+        <div class="desktop-group">
+            <ul class="nav-links">
+                <li><a href="ally.html"><i class="fa-solid fa-handshake"></i> <span data-en="Ally" data-ar="تحالف">Ally</span></a></li>
+                <li><a href="apply.html"><i class="fa-solid fa-paper-plane"></i> <span data-en="Apply" data-ar="تقديم">Apply</span></a></li>
+                <li>
+                    <select class="lang-dropdown" onchange="changeLanguage(this.value)">
+                        <option value="en">English 🇬🇧</option>
+                        <option value="ar">العربية 🇸🇦</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Hamburger Icon (Mobile Only) -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menu-icon"></i>
+        </div>
+
+        <!-- Combined Menu for Mobile Dropdown -->
+        <div class="mobile-only nav-menu-wrapper" id="nav-menu">
+            <ul class="nav-links">
+                <li><a href="#members"><i class="fa-solid fa-users"></i> <span data-en="Our Members" data-ar="أعضاؤنا">Our Members</span></a></li>
+                <li><a href="report.html"><i class="fa-solid fa-flag"></i> <span data-en="Report" data-ar="بلاغ">Report</span></a></li>
+                <li><a href="ally.html"><i class="fa-solid fa-handshake"></i> <span data-en="Ally" data-ar="تحالف">Ally</span></a></li>
+                <li><a href="apply.html"><i class="fa-solid fa-paper-plane"></i> <span data-en="Apply" data-ar="تقديم">Apply</span></a></li>
+            </ul>
+            <select class="lang-dropdown" onchange="changeLanguage(this.value)">
+                <option value="en">English 🇬🇧</option>
+                <option value="ar">العربية 🇸🇦</option>
+            </select>
+        </div>
     </nav>
 
     <!-- Page 1: Hero Section -->
     <section id="home" class="page-section">
-        <h2 class="hero-subtitle">Welcome to</h2>
+        <h2 class="hero-subtitle" data-en="Welcome to" data-ar="مرحباً بكم في">Welcome to</h2>
         <h1 class="hero-title">Crucified</h1>
-        <p class="hero-description">
+        <p class="hero-description" data-en="Driven by pure dominance and strategic teamwork, our sole ambition is to conquer the #1 spot on the UltimisMC Leaderboards, claim the gold, and reign supreme over the server." data-ar="بفضل السيطرة المطلقة والعمل الجماعي الاستراتيجي، هدفنا الوحيد هو احتلال المركز الأول في قائمة متصدري UltimisMC، وانتزاع الذهب، والسيطرة التامة على السيرفر.">
             Driven by pure dominance and strategic teamwork, our sole ambition is to conquer the #1 spot on the UltimisMC Leaderboards, claim the gold, and reign supreme over the server.
         </p>
     </section>
 
     <!-- Page 2: Our Members -->
     <section id="members" class="page-section">
-        <h2 class="section-title"><i class="fa-solid fa-shield-halved"></i> Our Members</h2>
+        <h2 class="section-title"><i class="fa-solid fa-shield-halved"></i> <span data-en="Our Members" data-ar="طاقمنا وأعضاؤنا">Our Members</span></h2>
         
         <div class="members-container">
             <!-- Leader -->
             <div class="rank-card">
-                <div class="rank-header rank-leader"><i class="fa-solid fa-crown"></i> Leader</div>
+                <div class="rank-header rank-leader"><i class="fa-solid fa-crown"></i> <span data-en="Leader" data-ar="القائد (Leader)">Leader</span></div>
                 <div class="member-list">
                     <span class="member-badge">Nobodyyyyy_gg</span>
                 </div>
@@ -395,7 +538,7 @@
 
             <!-- Staff Manager -->
             <div class="rank-card">
-                <div class="rank-header rank-staff-manager"><i class="fa-solid fa-user-tie"></i> Staff Manager</div>
+                <div class="rank-header rank-staff-manager"><i class="fa-solid fa-user-tie"></i> <span data-en="Staff Manager" data-ar="مدير الطاقم (Staff Manager)">Staff Manager</span></div>
                 <div class="member-list">
                     <span class="member-badge">JustAhmed_</span>
                 </div>
@@ -403,32 +546,34 @@
 
             <!-- Dev -->
             <div class="rank-card">
-                <div class="rank-header rank-dev"><i class="fa-solid fa-code"></i> Dev</div>
+                <div class="rank-header rank-dev"><i class="fa-solid fa-code"></i> <span data-en="Dev" data-ar="المطورين (Dev)">Dev</span></div>
                 <div class="member-list">
+                    <span class="member-badge">AuraFarmX</span>
                     <span class="member-badge">skinzo77</span>
                 </div>
             </div>
 
             <!-- Manager -->
             <div class="rank-card">
-                <div class="rank-header rank-manager"><i class="fa-solid fa-list-check"></i> Manager</div>
+                <div class="rank-header rank-manager"><i class="fa-solid fa-list-check"></i> <span data-en="Manager" data-ar="المدير (Manager)">Manager</span></div>
                 <div class="member-list">
-                    <span class="member-badge">N/A</span>
+                    <span class="member-badge">JustAhmed_</span>
                 </div>
             </div>
 
             <!-- Admin -->
             <div class="rank-card">
-                <div class="rank-header rank-admin"><i class="fa-solid fa-user-ninja"></i> Admin</div>
+                <div class="rank-header rank-admin"><i class="fa-solid fa-user-ninja"></i> <span data-en="Admin" data-ar="الإداريين (Admin)">Admin</span></div>
                 <div class="member-list">
                     <span class="member-badge">Eslam242</span>
                     <span class="member-badge">SxZo</span>
+                    <span class="member-badge">Solvski</span>
                 </div>
             </div>
 
             <!-- Mod -->
             <div class="rank-card">
-                <div class="rank-header rank-mod"><i class="fa-solid fa-user-shield"></i> Mod</div>
+                <div class="rank-header rank-mod"><i class="fa-solid fa-user-shield"></i> <span data-en="Mod" data-ar="المشرفين (Mod)">Mod</span></div>
                 <div class="member-list">
                     <span class="member-badge">Fuxion</span>
                 </div>
@@ -436,7 +581,7 @@
 
             <!-- Helper -->
             <div class="rank-card">
-                <div class="rank-header rank-helper"><i class="fa-solid fa-hand-holding-hand"></i> Helper</div>
+                <div class="rank-header rank-helper"><i class="fa-solid fa-hand-holding-hand"></i> <span data-en="Helper" data-ar="المساعدين (Helper)">Helper</span></div>
                 <div class="member-list">
                     <span class="member-badge">qaam</span>
                 </div>
@@ -444,32 +589,28 @@
 
             <!-- Members -->
             <div class="rank-card">
-                <div class="rank-header rank-member"><i class="fa-solid fa-user"></i> Members</div>
+                <div class="rank-header rank-member"><i class="fa-solid fa-user"></i> <span data-en="Members" data-ar="الأعضاء (Members)">Members</span></div>
                 <div class="member-list">
                     <span class="member-badge">baldheadpecko</span>
+                    <span class="member-badge">getsomethinghigh</span>
                     <span class="member-badge">Xenox231</span>
                     <span class="member-badge">_Alzey_</span>
-                    <span class="member-badge">Nouf_</span>
+                    <span class="member-badge">ClownMan1</span>
+                    <span class="member-badge">bedheadpecko</span>
                     <span class="member-badge">acalmaind</span>
+                    <span class="member-badge">Flames_Playz1</span>
                     <span class="member-badge">salambader</span>
-                    <span class="member-badge">InvisibleMercy</span>
                     <span class="member-badge">abu_bilal8</span>
-                    <span class="member-badge">AquaTheSecond</span>
                     <span class="member-badge">kocurek124</span>
                     <span class="member-badge">NoMercyBaby</span>
                     <span class="member-badge">GAZA_BACK</span>
                     <span class="member-badge">PharaoH_____</span>
                     <span class="member-badge">PhoenixEchoes</span>
+                    <span class="member-badge">mohamed20131432</span>
                     <span class="member-badge">Dad_Is_Hare</span>
-                    <span class="member-badge">Adertra</span>
-                    <span class="member-badge">ItzTechnoGuy</span>
                     <span class="member-badge">ImNobodyBtw</span>
-                    <span class="member-badge">IwasQorix</span>
                     <span class="member-badge">Luka726</span>
-                    <span class="member-badge">rcol</span>
-                    <span class="member-badge">Solvski</span>
-                    <span class="member-badge">Lone_Raichu</span>
-                    <span class="member-badge">TimotejFiko</span>
+                    <span class="member-badge">TimotejPiko</span>
                 </div>
             </div>
         </div>
@@ -477,22 +618,41 @@
 
     <!-- Page 3: Apply & Ally -->
     <section id="join-us" class="page-section">
-        <h2 class="section-title"><i class="fa-solid fa-door-open"></i> Join or Ally</h2>
+        <h2 class="section-title"><i class="fa-solid fa-door-open"></i> <span data-en="Join or Ally" data-ar="الانضمام أو التحالف">Join or Ally</span></h2>
         <div class="split-container">
             <div class="action-card">
                 <div>
-                    <h3><i class="fa-solid fa-paper-plane"></i> Apply for Clan</h3>
-                    <p>Think you have what it takes to fight alongside the best? Submit your application and prove your strength on the battlefield.</p>
+                    <h3><i class="fa-solid fa-paper-plane"></i> <span data-en="Apply for Clan" data-ar="تقديم للكلان">Apply for Clan</span></h3>
+                    <p data-en="Think you have what it takes to fight alongside the best? Submit your application and prove your strength on the battlefield." data-ar="هل تعتقد أن لديك ما يلزم للقتال بجانب الأفضل؟ قدم طلبك وأثبت قوتك في ساحة المعركة.">Think you have what it takes to fight alongside the best? Submit your application and prove your strength on the battlefield.</p>
                 </div>
-                <a href="apply.html" class="btn">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="apply.html" class="btn"><span data-en="Apply Now" data-ar="قدم الآن">Apply Now</span> <i class="fa-solid fa-arrow-right"></i></a>
             </div>
 
             <div class="action-card">
                 <div>
-                    <h3><i class="fa-solid fa-handshake"></i> Request Alliance</h3>
-                    <p>Looking to build a powerful coalition? Send an alliance request to form a strong pact with Crucified.</p>
+                    <h3><i class="fa-solid fa-handshake"></i> <span data-en="Request Alliance" data-ar="طلب تحالف">Request Alliance</span></h3>
+                    <p data-en="Looking to build a powerful coalition? Send an alliance request to form a strong pact with Crucified." data-ar="هل تبحث عن بناء تحالف قوي؟ أرسل طلب تحالف لعقد ميثاق قوي مع Crucified.">Looking to build a powerful coalition? Send an alliance request to form a strong pact with Crucified.</p>
                 </div>
-                <a href="ally.html" class="btn">Ally Request <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="ally.html" class="btn"><span data-en="Ally Request" data-ar="طلب تحالف">Ally Request</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 4: Our Allies Section Page -->
+    <section id="allies" class="page-section">
+        <h2 class="section-title"><i class="fa-solid fa-shield-cat"></i> <span data-en="Our Allies" data-ar="حلفاؤنا">Our Allies</span></h2>
+        
+        <div class="allies-grid">
+            <div class="ally-card">
+                <div class="ally-icon"><i class="fa-solid fa-fire"></i></div>
+                <div class="ally-title">InX</div>
+                <div class="ally-desc">XInfernoX</div>
+            </div>
+
+            <div class="ally-card">
+                <div class="ally-icon"><i class="fa-solid fa-dragon"></i></div>
+                <div class="ally-title">hamor1</div>
+                <div class="ally-desc">pek</div>
             </div>
         </div>
     </section>
@@ -502,20 +662,21 @@
         <div class="footer-content">
             <div class="footer-left">
                 <h3>Crucified Clan</h3>
-                <p>Dominating UltimisMC server.</p>
+                <p data-en="Dominating UltimisMC server." data-ar="المسيطرون على سيرفر UltimisMC.">Dominating UltimisMC server.</p>
                 <div class="ip-box"><i class="fa-solid fa-server"></i> IP: ultimismc.com</div>
                 <br>
-                <a href="#" class="discord-btn"><i class="fa-brands fa-discord"></i> Our Discord Server</a>
+                <a href="https://discord.com/channels/1533401866551955506" class="discord-btn"><i class="fa-brands fa-discord"></i> <span data-en="Our Discord Server" data-ar="سيرفر الديسكورد الخاص بنا">Our Discord Server</span></a>
             </div>
 
             <div class="footer-right">
-                <h3>Clan Hierarchy & Staff</h3>
+                <h3 data-en="Clan Hierarchy & Staff" data-ar="الهيكل الإداري للكلان">Clan Hierarchy & Staff</h3>
                 <br>
                 <ul class="footer-staff-list">
                     <li><strong>Leader:</strong> Nobodyyyyy_gg</li>
                     <li><strong>Staff Manager:</strong> JustAhmed_</li>
-                    <li><strong>Dev:</strong> skinzo77</li>
-                    <li><strong>Admins:</strong> Eslam242, SxZo</li>
+                    <li><strong>Manager:</strong> JustAhmed_</li>
+                    <li><strong>Dev:</strong> AuraFarmX, skinzo77</li>
+                    <li><strong>Admins:</strong> Eslam242, SxZo, Solvski</li>
                     <li><strong>Mod:</strong> Fuxion</li>
                 </ul>
             </div>
@@ -525,6 +686,44 @@
             Created with passion | <strong>by skinzo77</strong>
         </div>
     </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Toggle Hamburger Menu
+        function toggleMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            navMenu.classList.toggle('active');
+            
+            if (navMenu.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            } else {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+
+        // Change Language for both PC and Mobile elements
+        function changeLanguage(lang) {
+            const translatableElements = document.querySelectorAll('[data-en]');
+            translatableElements.forEach(el => {
+                el.innerText = el.getAttribute(`data-${lang}`);
+            });
+
+            // Synchronize select inputs across PC and Mobile
+            const dropdowns = document.querySelectorAll('.lang-dropdown');
+            dropdowns.forEach(select => select.value = lang);
+
+            if (lang === 'ar') {
+                document.body.classList.add('lang-ar');
+                document.body.style.direction = 'rtl';
+            } else {
+                document.body.classList.remove('lang-ar');
+                document.body.style.direction = 'ltr';
+            }
+        }
+    </script>
 <script src="app.js"></script>
 </body>
 </html>
